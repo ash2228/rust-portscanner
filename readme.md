@@ -22,4 +22,5 @@ To build and run this project, ensure you have Rust installed, then clone this r
 ```bash
 git clone https://github.com/ash2228/rust-portscanner.git
 cd rust-portscanner
+cargo build --release
 ./target/release/port_scanner <host>

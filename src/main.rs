@@ -15,7 +15,7 @@ async fn main() {
     let args = Args::parse();
     let host = args.host;
     let host = host.trim().to_string();
-    println!("Scanning from Server Ports...");
+    println!("Scanning Server Ports...");
     let open_ports = Arc::new(Mutex::new(Vec::new()));
     let ports = vec![21, 22, 23, 25, 53, 80, 110, 137, 138, 139, 143, 443, 445, 548, 587, 993, 995, 1433, 1701, 1723, 3306, 5432, 8008, 8443];
     let timer = Instant::now();

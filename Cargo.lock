@@ -847,6 +847,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "915a1e146535de9163f3987b8944ed8cf49a18bb0056bcebcdcece385cece4ff"
 
 [[package]]
+<<<<<<< HEAD
 name = "pin-utils"
 version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -895,6 +896,9 @@ dependencies = [
 
 [[package]]
 name = "prac"
+=======
+name = "port_scanner"
+>>>>>>> f82e567297e636789b0d99e80ede95af43006fda
 version = "0.1.0"
 dependencies = [
  "clap",

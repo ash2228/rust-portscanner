@@ -1,6 +1,6 @@
 # Rust Port Scanner
 
-A simple and efficient multithreaded port scanner written in Rust. This tool allows you to scan a specified host for open TCP ports in the range of 1 to 10000.
+A simple and efficient multithreaded port scanner written in Rust. This tool allows you to scan a specified host for open and closed server ports.
 
 ## Features
 

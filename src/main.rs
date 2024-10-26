@@ -1,7 +1,6 @@
 use std::{net::SocketAddr, sync::Mutex, time::{Duration, Instant}};
 use tokio::{net::TcpStream, task};
 use std::sync::Arc;
-use num_cpus;
 use clap::Parser;
 use notify_rust::{Notification, Timeout};
 
@@ -16,24 +15,20 @@ async fn main() {
     let args = Args::parse();
     let host = args.host;
     let host = host.trim().to_string();
-    let threds = num_cpus::get() * 100;
-    println!("Scanning from ports 0..10000");
+    println!("Scanning from Server Ports...");
     let open_ports = Arc::new(Mutex::new(Vec::new()));
-    let mut tasks = vec![];
+    let ports = vec![21, 22, 23, 25, 53, 80, 110, 137, 138, 139, 143, 443, 445, 548, 587, 993, 995, 1433, 1701, 1723, 3306, 5432, 8008, 8443];
     let timer = Instant::now();
-    for i in 0..threds {
+    let mut tasks = vec![];
+    for port in ports {
         let host = host.clone();
         let open_ports = Arc::clone(&open_ports);
         let handle = task::spawn(async move{
-            let trim_host = host.trim();
-            for j in 1..10000/threds {
-                let port = (i*10000/threds)+j;
-                let ip_addr = format!("{trim_host}:{port}");
-                match port_exists(&ip_addr).await {
-                    Some(true) => {println!("Port {port} is open");open_ports.lock().unwrap().push(port);},
-                    Some(false) => println!("Port {port} is closed"),
-                    None => {}
-                }
+            let ip_addr = format!("{host}:{port}");
+            match port_exists(&ip_addr).await {
+                Some(true) => {println!("Open port {port}");open_ports.lock().unwrap().push(port);},
+                Some(false) => {println!("Closed port {port}")},
+                None => {}
             }
         });
         tasks.push(handle);

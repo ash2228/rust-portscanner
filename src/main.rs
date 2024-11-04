@@ -3,6 +3,14 @@ use tokio::{net::TcpStream, task};
 use std::sync::Arc;
 use clap::Parser;
 use notify_rust::{Notification, Timeout};
+use figlet_rs::FIGfont;
+
+/// Simple program to print "Made by Ash" in ASCII art
+#[derive(Parser)]
+struct Cli {
+    #[arg(short, long, default_value = "Made by Ash")]
+    text: String,
+}
 
 #[derive(Parser)]
 struct Args {
@@ -11,6 +19,20 @@ struct Args {
 
 #[tokio::main]
 async fn main() {
+    let args = Cli::parse();
+
+    // Load the standard font
+    let font = FIGfont::standard().expect("Error loading font");
+
+    // Generate ASCII art for the text
+    let figure = font.convert(&args.text);
+
+    // Print the ASCII art if the conversion was successful
+    if let Some(figure) = figure {
+        println!("{}", figure);
+    } else {
+        eprintln!("Error: Could not generate ASCII art for the given text");
+    }
     println!("Port Scanner");
     let args = Args::parse();
     let host = args.host;

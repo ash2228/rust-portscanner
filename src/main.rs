@@ -79,7 +79,7 @@ async fn main() {
 
 async fn port_exists(addr: &str) -> Option<bool> {
     let socket_addr: SocketAddr = addr.parse().ok()?;
-    let timeout = Duration::from_millis(500);
+    let timeout = Duration::from_millis(200);
     match tokio::time::timeout(timeout, TcpStream::connect(&socket_addr)).await {
         Ok(Ok(_)) => Some(true),
         Ok(Err(_)) => Some(false),
